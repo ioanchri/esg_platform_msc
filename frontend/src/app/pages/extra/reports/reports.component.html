@@ -1,0 +1,20 @@
+<mat-card class="cardWithShadow">
+    <mat-card-header>
+      <mat-card-title>Reports</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card-title>Select the year that you want to generate a Report</mat-card-title>
+      <form [formGroup]="reportForm" (ngSubmit)="onYearSelected()">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select Year</mat-label>
+          <mat-select formControlName="year">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{ year }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" class="m-r-8">Download PDF</button>
+        <button mat-raised-button color="warn" type="button" (click)="onYearSelectedPortfolio()">View ESG Portfolio</button>
+      </form>
+    </mat-card-content>
+  </mat-card>

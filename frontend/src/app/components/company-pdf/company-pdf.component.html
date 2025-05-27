@@ -1,0 +1,80 @@
+<!-- <div class="container">
+  <div class="upload-area">
+    <input
+      #fileInput
+      type="file"
+      (change)="onFileSelected($event)"
+      accept=".pdf"
+      hidden
+    />
+    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+      <mat-icon>upload</mat-icon> Select PDF File
+    </button>
+    <div class="selected-file" *ngIf="selectedFile">
+      {{ selectedFile.name }}
+    </div>
+    <button (click)="onRemove()">Delete</button>
+  </div>
+  <button
+    mat-raised-button
+    color="accent"
+    type="button"
+    (click)="onUpload()"
+    [disabled]="!selectedFile"
+  >
+    Upload
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    type="button"
+    (click)="onDownloadTest()"
+  >
+    Download PDF
+  </button>
+</div> -->
+
+
+<div class="container">
+  <div class="upload-area">
+    <input
+      #fileInput
+      type="file"
+      (change)="onFileSelected($event)"
+      accept=".pdf"
+      hidden
+    />
+    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+      <mat-icon>upload</mat-icon> Select PDF File
+    </button>
+    <div class="selected-file" *ngIf="selectedFile">
+      {{ selectedFile.name }}
+    </div>
+    <button (click)="onRemove()">Delete</button>
+  </div>
+  <button
+    mat-raised-button
+    color="accent"
+    type="button"
+    (click)="onUpload()"
+    [disabled]="!selectedFile"
+  >
+    Upload
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    type="button"
+    (click)="onViewPdf()"
+    [disabled]="!pdfUrl"
+  >
+    View PDF
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    type="button"
+    (click)="onDelete()"
+    [disabled]="!pdfUrl"
+  >Delete PDF</button>
+</div>

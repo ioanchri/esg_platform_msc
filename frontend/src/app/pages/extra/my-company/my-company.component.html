@@ -1,0 +1,79 @@
+<mat-card *ngIf="company">
+  <mat-card-content class="p-y-24">
+    <div class="d-flex align-items-center justify-content-between">
+      <mat-card-title>{{ company.name }}</mat-card-title>
+      <div>
+        <button mat-icon-button color="primary" (click)="editCompany()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="confirmDeleteCompany()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Industry</mat-label>
+            <input matInput [value]="company.industry" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contact Email</mat-label>
+            <input matInput [value]="company.contact_email" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Website</mat-label>
+            <input matInput [value]="company.website" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Phone Number</mat-label>
+            <input matInput [value]="company.phone_number" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Year Founded</mat-label>
+            <input matInput [value]="company.year_founded" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Country</mat-label>
+            <input matInput [value]="company.country" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>City</mat-label>
+            <input matInput [value]="company.city" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address</mat-label>
+            <input matInput [value]="company.address" readonly />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Postal Code</mat-label>
+            <input matInput [value]="company.postal_code" readonly />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card-content>
+</mat-card>
+<div *ngIf="!company" class="text-center">
+    <p>No company information available.</p>
+    <button mat-flat-button color="primary" routerLink="/extra/addCompany">
+      Add your Company
+    </button>
+</div>

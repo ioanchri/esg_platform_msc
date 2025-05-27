@@ -1,0 +1,17 @@
+<div class="text-center" *ngIf="!user?.company_id">
+  <p>No company information available.</p>
+  <button
+    mat-flat-button
+    color="primary"
+    routerLink="/extra/addCompany"
+    class="m-r-8"
+  >
+    Add your Company
+  </button>
+</div>
+<app-company-metrics
+  *ngIf="user?.company_id"
+  [companyId]="user?.company_id ?? null"
+  [showButtons]="showButtons"
+
+></app-company-metrics>

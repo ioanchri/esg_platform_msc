@@ -1,0 +1,354 @@
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="yearlyMetrics.length > 0">
+  <mat-card *ngIf="!loading">
+    <mat-card-header class="justify-content-center position-relative">
+      <mat-card-title class="f-w-900">{{ nameCompany }} Metrics</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-header class="justify-content-center">
+      <mat-card-title class="f-s-16 f-w-500">
+        You have submitted metrics for the following years:
+        <span class="success-bold">{{ years }}</span> .
+      </mat-card-title>
+    </mat-card-header>
+    <div class="add-metrics">
+      <button
+        mat-fab
+        color="accent"
+        matTooltip="Add metrics for a new year"
+        (click)="redirectToSelectYear()"
+      >
+        <mat-icon>note_add</mat-icon>
+      </button>
+    </div>
+    <mat-card-content>
+      <div *ngFor="let metrics of yearlyMetrics">
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header class="justify-content-center">
+            <mat-card-title>Metrics for {{ metrics.year }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h2>Environmental Metrics</h2>
+            <mat-list class="m-b-8">
+              <div class="grid-container">
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Electricity Consumption
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.electricity_consumption }} kWh
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Gas Consumption
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.gas_consumption }} liters
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Car Diesel Consumption
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.car_diesel_consumption }} liters
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Car Fuel Consumption
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.car_fuel_consumption }} liters
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Car Electricity Consumption
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.car_electricity_consumption }} kWh
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Hazardous Waste
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.hazardous_waste }} liters
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.environmental">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Non Hazardous Waste
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.environmental.non_hazardous_waste }} liters
+                  </div>
+                </mat-list-item>
+              </div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="editEnvironmentalMetrics(metrics.environmental)"
+              >
+                Edit Enviromental Metrics
+              </button>
+            </mat-list>
+            <h2>Social Metrics</h2>
+            <mat-list class="m-b-8">
+              <div class="grid-container">
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    No of Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.no_of_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Male Employees
+                  </div>
+                  <div matListItemLine>{{ metrics.social.male_employees }}</div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Female Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.female_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Permanent Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.permanent_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Temporary Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.temporary_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Full Time Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.full_time_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Part Time Employees
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.part_time_employees }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Employees Under 30
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.employees_under_30 }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Employees 30-50
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.employees_30_50 }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Employees Over 50
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.employees_over_50 }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    New Employees
+                  </div>
+                  <div matListItemLine>{{ metrics.social.new_employees }}</div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Employees Left
+                  </div>
+                  <div matListItemLine>{{ metrics.social.employees_left }}</div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Voluntary Turnover
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.voluntary_turnover }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Involuntary Turnover
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.involuntary_turnover }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Avg Hourly Earnings Male
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.avg_hourly_earnings_male }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Avg Hourly Earnings Female
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.avg_hourly_earnings_female }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    CEO Total Compensation
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.ceo_total_compensation }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Median Employee Total Compensation
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.social.median_employee_total_compensation }}
+                  </div>
+                </mat-list-item>
+
+                <mat-list-item *ngIf="metrics.social">
+                  <div matListItemTitle class="f-s-16 f-w-600">Pay Ratio</div>
+                  <div matListItemLine>{{ metrics.social.pay_ratio }}</div>
+                </mat-list-item>
+              </div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="editSocialMetrics(metrics.social)"
+              >
+                Edit Social Metrics
+              </button>
+            </mat-list>
+            <h2>Governance Metrics</h2>
+            <mat-list class="m-b-8">
+              <div class="grid-container">
+                <mat-list-item *ngIf="metrics.governance">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Business Conduct Actions
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.governance.business_conduct_text }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.governance">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Whistleblowing Actions
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.governance.whistleblowing_text }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.governance">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Anti Corruption Actions
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.governance.anti_corruption_text }}
+                  </div>
+                </mat-list-item>
+                <mat-list-item *ngIf="metrics.governance">
+                  <div matListItemTitle class="f-s-16 f-w-600">
+                    Corporate Culture Actions
+                  </div>
+                  <div matListItemLine>
+                    {{ metrics.governance.corporate_culture_text }}
+                  </div>
+                </mat-list-item>
+              </div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="editGovernanceMetrics(metrics.governance)"
+              >
+                Edit Governance Metrics
+              </button>
+            </mat-list>
+            <mat-card *ngIf="esgScores[metrics.year]" class="esg-score-card">
+              <mat-card-header>
+                <mat-card-title class="text-center">
+                  ESG Score for {{ esgScores[metrics.year].year }}:
+                  <span
+                    [ngClass]="{
+                      'good-score': esgScores[metrics.year].label === 'Good',
+                      'average-score':
+                        esgScores[metrics.year].label === 'Average',
+                      'needs-improvement-score':
+                        esgScores[metrics.year].label === 'Needs Improvement'
+                    }"
+                    >{{ esgScores[metrics.year].esg_score }} / 100 ({{
+                      esgScores[metrics.year].label
+                    }})</span
+                  >
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="text-center">
+                <div>
+                  Environmental:
+                  <b>{{ esgScores[metrics.year].environmental }}</b>
+                </div>
+                <div>
+                  Social: <b>{{ esgScores[metrics.year].social }}</b>
+                </div>
+                <div>
+                  Governance: <b>{{ esgScores[metrics.year].governance }}</b>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="confirmDeleteMetrics(metrics.year)"
+            >
+              Delete Metrics for {{ metrics.year }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card
+  *ngIf="yearlyMetrics.length === 0"
+  class="align-items-center m-l-8 m-r-8"
+>
+  <mat-card-content>
+    <p>No metrics available.</p>
+    <button mat-flat-button color="primary" (click)="redirectToSelectYear()">
+      Start Adding Metrics
+    </button>
+  </mat-card-content>
+</mat-card>

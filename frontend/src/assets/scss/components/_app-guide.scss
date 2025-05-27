@@ -1,0 +1,21 @@
+.step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  
+    .step-title {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+  
+    mat-icon {
+      margin-right: 8px;
+    }
+  
+    button[disabled] {
+      background-color: #ccc;
+      color: #fff;
+    }
+  }

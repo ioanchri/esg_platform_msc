@@ -1,0 +1,24 @@
+<mat-card class="cardWithShadow theme-card col-lg-6">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Guide</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div *ngFor="let step of steps" class="step">
+      <div class="step-title">
+        <mat-icon *ngIf="step.completed" color="primary">check_circle</mat-icon>
+        <mat-icon *ngIf="!step.completed" color="warn"
+          >radio_button_unchecked</mat-icon
+        >
+        {{ step.title }}
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="step.disabled"
+        (click)="navigateTo(step.route, step.disabled)"
+      >
+        {{ step.completed ? "Edit" : "Add" }} {{ step.title }}
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

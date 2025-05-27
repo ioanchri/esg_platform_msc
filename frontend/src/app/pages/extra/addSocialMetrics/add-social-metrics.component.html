@@ -1,0 +1,371 @@
+<div *ngIf="isUpdateMode" class="theme-card shadow-none">
+  <mat-card class="shadow-none bg-transparent">
+    <mat-card-content>
+      <div
+        class="d-flex flex-sm-row flex-column align-items-center justify-content-center gap-8"
+      >
+        <button
+          mat-fab
+          extended
+          color="primary"
+          (click)="onEnvironmentalMetrics()"
+        >
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="leaf"></i-tabler
+            ><span> Environmental</span>
+          </div>
+        </button>
+
+        <button mat-fab extended color="accent" disabled class="b-2">
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="social"></i-tabler>
+            Social
+          </div>
+        </button>
+
+        <button mat-fab extended color="warn" (click)="onGovernanceMetrics()">
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="gavel"></i-tabler> Governance
+          </div>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="justify-content-center">
+    <h1>Social Metrics</h1>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form
+      class="m-t-24"
+      [formGroup]="socialMetricsForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <form class="m-t-24" [formGroup]="workforceFormGroup">
+        <h2 class="text-center">WorkForce Characteristics</h2>
+        <div class="row">
+          <!-- Pay Ratio -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16">Pay Ratio</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="Pay Ratio"
+                formControlName="pay_ratio"
+              />
+            </mat-form-field>
+          </div>
+          <!-- No of Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >No of Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="No of Employees"
+                formControlName="no_of_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Male Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Male Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Male Employees"
+                formControlName="male_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Female Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Female Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Female Employees"
+                formControlName="female_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Permanent Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Permanent Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Permanent Employees"
+                formControlName="permanent_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Temporary Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Temporary Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Temporary Employees"
+                formControlName="temporary_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Full Time Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Full Time Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Full Time Employees"
+                formControlName="full_time_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Part Time Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Part Time Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Part Time Employees"
+                formControlName="part_time_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Employees Under 30 -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Employees Under 30</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Employees Under 30"
+                formControlName="employees_under_30"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Employees 30-50 -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Employees 30-50</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Employees 30-50"
+                formControlName="employees_30_50"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Employees Over 50 -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Employees Over 50</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Employees Over 50"
+                formControlName="employees_over_50"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <h2 class="text-center">Training</h2>
+      <!-- Training Hours Step -->
+      <form class="m-t-24" [formGroup]="trainingFormGroup">
+        <ng-template>Training Hours</ng-template>
+        <div class="row">
+          <!-- Training Hours -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Training Hours</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Training Hours"
+                formControlName="training_hours"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <h2 class="text-center">New Hires Turnover</h2>
+      <!-- New Hires-Turnover Step -->
+      <form class="m-t-24" [formGroup]="newHiresTurnoverFormGroup">
+        <ng-template>New Hires-Turnover</ng-template>
+        <div class="row">
+          <!-- New Employees -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >New Employees</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="New Employees"
+                formControlName="new_employees"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Employees Left -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Employees Left</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Employees Left"
+                formControlName="employees_left"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Voluntary Turnover -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Voluntary Turnover</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Voluntary Turnover"
+                formControlName="voluntary_turnover"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Involuntary Turnover -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Involuntary Turnover</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Involuntary Turnover"
+                formControlName="involuntary_turnover"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <h2 class="text-center">Compensation</h2>
+      <!-- Compensation Step -->
+      <form class="m-t-24" [formGroup]="compensationFormGroup">
+        <ng-template>Compensation</ng-template>
+        <div class="row">
+          <!-- Avg Hourly Earnings Male -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Avg Hourly Earnings Male</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Avg Hourly Earnings Male"
+                formControlName="avg_hourly_earnings_male"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Avg Hourly Earnings Female -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Avg Hourly Earnings Female</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Avg Hourly Earnings Female"
+                formControlName="avg_hourly_earnings_female"
+              />
+            </mat-form-field>
+          </div>
+          <!-- CEO Total Compensation -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >CEO Total Compensation</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="CEO Total Compensation"
+                formControlName="ceo_total_compensation"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Median Employee Total Compensation -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="f-w-600 d-block m-b-16"
+                >Median Employee Total Compensation</mat-label
+              >
+              <input
+                matInput
+                type="number"
+                placeholder="Median Employee Total Compensation"
+                formControlName="median_employee_total_compensation"
+              />
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="text-right m-t-12">
+          <button
+            mat-flat-button
+            color="primary"
+            class="m-r-8"
+            (click)="onSubmit()"
+          >
+            {{ isUpdateMode ? "Save" : "Add Social Metrics" }}
+          </button>
+          <button
+            [routerLink]="['/dashboard']"
+            mat-stroked-button
+            color="secondary"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </form>
+  </mat-card-content>
+</mat-card>

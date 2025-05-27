@@ -1,0 +1,100 @@
+<div *ngIf="company" class="esg-portfolio-container">
+  <mat-card-header *ngIf="company" class="justify-content-center">
+    <h1><span style="color: green;">{{metrics?.year}}</span> ESG Portfolio for <b>{{company.name}}</b></h1>
+  </mat-card-header>
+  <mat-card class="company-details-card">
+    <mat-card-header>
+      <mat-card-title>Company Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="company">
+        <p><strong>Name:</strong> {{ company.name }}</p>
+        <p><strong>Industry:</strong> {{ company.industry }}</p>
+        <p><strong>Website:</strong> <a href="{{ company.website }}">{{ company.website }}</a></p>
+        <p><strong>Contact Email:</strong> {{ company.contact_email }}</p>
+        <p><strong>Phone Number:</strong>{{ company.phone_number }}</p>
+        <p><strong>Location:</strong> {{ company.address }},{{company.country}}</p>
+        <p><strong>Founded:</strong> {{ company.year_founded }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="metrics-card">
+    <mat-card-header>
+      <mat-card-title class="text-center">Metrics for {{ metrics?.year }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="text-center">
+      <div *ngIf="metrics">
+        <!-- Enviromental Metrics -->
+        <h3>Environmental Metrics</h3>
+        <p>Electricity Consumption: {{ metrics.environmental?.electricity_consumption }} kWh</p>
+        <p>Gas Consumption: {{ metrics.environmental?.gas_consumption }} liters</p>
+        <h4>Vehicles consumptions</h4>
+        <p>Car Diesel Consumption: {{ metrics.environmental?.car_diesel_consumption }} liters</p>
+        <p>Car Fuel Consumption: {{ metrics.environmental?.car_fuel_consumption }} liters</p>
+        <p>Car Electricity Consumption: {{ metrics.environmental?.water_consumption }} liters</p>
+        <h4>Waste consumption</h4>
+        <p>Hazardus Waste Production: {{ metrics.environmental?.hazardous_waste}} kgs</p>
+        <p>Non Hazardus Waste Production: {{ metrics.environmental?.non_hazardous_waste }} kgs</p>
+        <!-- Social Metrics -->
+        <h3> Social Metrics</h3>
+        <p>No of Employees: {{ metrics.social?.no_of_employees }}</p>
+        <p>Male Employees: {{ metrics.social?.male_employees }}</p>
+        <p>Female Employees: {{ metrics.social?.female_employees }}</p>
+        <p>Permanent Employees: {{ metrics.social?.permanent_employees }}</p>
+        <p>Temporary Employees: {{ metrics.social?.temporary_employees }}</p>
+        <p>Full-time Employees: {{ metrics.social?.full_time_employees }}</p>
+        <p>Part-time Employees: {{ metrics.social?.part_time_employees }}</p>
+        <p>Employees under 30: {{ metrics.social?.employees_under_30 }}</p>
+        <p>Employees over 50: {{ metrics.social?.employees_over_50 }}</p>
+        <p>New Employees: {{ metrics.social?.new_employees }}</p>
+        <p>Employees Left: {{ metrics.social?.employees_left }}</p>
+        <p>Avg Hourly Earnings Female: {{ metrics.social?.avg_hourly_earnings_female }}</p>
+        <p>CEO Total Compensation: {{ metrics.social?.ceo_total_compensation }}</p>
+        <p>Median Employee Total Compensation: {{ metrics.social?.median_employee_total_compensation }}</p>
+        <p>Pay Ratio: {{ metrics.social?.pay_ratio }}</p>
+        <!-- Governance Metrics -->
+        <h3>Governance Metrics</h3>
+        <p>Business Conduct: {{ metrics.governance?.business_conduct_text }}</p>
+        <p>Whistleblowing: {{ metrics.governance?.whistleblowing_text }}</p>
+        <p>Anti-Corruption: {{ metrics.governance?.anti_corruption_text }}</p>
+        <p>Corporate Culture: {{ metrics.governance?.corporate_culture_text }}</p>
+      </div>
+      <div *ngIf="!metrics">
+        <p>No metrics available.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="esgScore" class="esg-score-card">
+    <mat-card-header>
+      <mat-card-title class="text-center">
+        ESG Score for {{ esgScore.year }}:
+        <span [ngClass]="{
+          'good-score': esgScore.label === 'Good',
+          'average-score': esgScore.label === 'Average',
+          'needs-improvement-score': esgScore.label === 'Needs Improvement'
+        }">{{ esgScore.esg_score }} / 100 ({{ esgScore.label }})</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="text-center">
+      <div>Environmental: <b>{{ esgScore.environmental }}</b></div>
+      <div>Social: <b>{{ esgScore.social }}</b></div>
+      <div>Governance: <b>{{ esgScore.governance }}</b></div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="statistics-card">
+    <mat-card-header>
+      <mat-card-title class="text-center">Graphs</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-statistics [selectedYear]="selectedYear" [selectedCompanyId]="companyId"></app-statistics>
+    </mat-card-content>
+    <app-governance-metrics-goals></app-governance-metrics-goals>
+
+  </mat-card>
+  <div class="text-center">
+    <button mat-raised-button color="primary" (click)="goToDashboard()">Go to Dashboard</button>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<mat-card class="shadow-none bg-light-accent overflow-hidden col-lg-12">
+  <mat-card-content class="p-32 p-b-0">
+    <div class="row justify-content-between">
+      <div class="col-sm-9">
+        <mat-card-title>Track your Goals</mat-card-title>
+        <mat-card-subtitle class="mat-body-2 text-dark m-t-16 lh-24 m-b-24"
+          >Here, you can set goals for your company to better align with ESG
+          (Environmental, Social, and Governance) standards. Define specific
+          objectives such as reducing CO2 emissions under Environmental goals,
+          closing the gender employment gap under Social goals, and improving
+          Governance practices.<br />To explore the key indicators your company
+          should monitor and align with,visit the
+          <a
+            href="https://ec.europa.eu/eurostat/web/sdi/key-findings"
+            target="_blank"
+            >Eurostat Sustainable Development Indicators.</a
+          ></mat-card-subtitle
+        >
+      </div>
+      <div class="col-sm-3 text-right">
+        <img
+          src="assets/images/backgrounds/track-bg.png"
+          alt="welcome"
+          width="150"
+          class="welcome-img"
+        />
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<h2 class="text-center">Environmental Goals</h2>
+<mat-card>
+  <mat-card class="cardWithShadow col-lg-11">
+    <mat-card-header>
+      <mat-card-title class="f-s-20 text-center"
+        >CO2 Emissions Reduction</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="m-y-24">
+        <h3 class="f-s-15">
+          Current CO2 Emissions: {{ currentCO2Emissions.toFixed(2) }} kg
+        </h3>
+      </div>
+      <form [formGroup]="goalsForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target Year</mat-label>
+          <input matInput formControlName="targetYear" type="number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target Reduction Percentage (1 - 99)</mat-label>
+          <input matInput formControlName="targetPercentage" type="number" />
+        </mat-form-field>
+        <mat-card-subtitle class="mat-body-2 text-dark m-y-4 lh-24"
+          ><br />To explore the key indicators for Environmental goals, visit
+          the
+          <a
+            href="https://climate.ec.europa.eu/eu-action/climate-strategies-targets/2030-climate-targets_en?prefLang=el#reducing-emissions---raising-our-ambition"
+            target="_blank"
+            >European Comission Climate Targets.</a
+          ></mat-card-subtitle
+        >
+        <div class="text-right">
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="goalsForm.invalid"
+          >
+            Set Goal
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <div class="row m-x-12">
+    <div *ngFor="let goal of co2Goals" class="m-t-16 col-lg-4">
+      <mat-card class="shadow-none bg-success overflow-hidden text-white">
+        <mat-card-header class="justify-content-between">
+          <mat-card-title
+            >CO2 emissions goal for {{ goal.target_year }}</mat-card-title
+          >
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="confirmDeleteGoal(goal)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Target Reduction Percentage: {{ goal.target_co2_percentage }}%</p>
+          <p>
+            Target CO2 Emissions: {{ goal.target_co2 | number : "1.2-2" }} kg
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>
+
+<h2 class="text-center">Gender Employment Gap Goals</h2>
+<mat-card>
+  <mat-card class="cardWithShadow col-lg-11">
+    <mat-card-header>
+      <mat-card-title class="f-s-20 text-center"
+        >Gender Employment Gap Reduction</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="m-y-24">
+        <h3 class="f-s-15">
+          Current Male Employees: {{ currentMaleEmployees }} ({{
+            currentMalePercentage.toFixed(2)
+          }}%)
+        </h3>
+        <h3 class="f-s-15">
+          Current Female Employees: {{ currentFemaleEmployees }} ({{
+            currentFemalePercentage.toFixed(2)
+          }}%)
+        </h3>
+      </div>
+      <form [formGroup]="genderGapForm" (ngSubmit)="onSubmitGenderGapGoal()">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target Year</mat-label>
+          <input matInput formControlName="targetYear" type="number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target Male Employees</mat-label>
+          <input matInput formControlName="targetMaleEmployees" type="number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target Female Employees</mat-label>
+          <input
+            matInput
+            formControlName="targetFemaleEmployees"
+            type="number"
+          />
+        </mat-form-field>
+        <div class="text-right">
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="genderGapForm.invalid"
+          >
+            Set Goal
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <div class="row m-x-12">
+    <div *ngFor="let goal of genderGoals" class="m-t-16 col-lg-4">
+      <mat-card class="shadow-none bg-light-primary overflow-hidden">
+        <mat-card-header class="justify-content-between">
+          <mat-card-title
+            >Gender goal for {{ goal.target_year }}</mat-card-title
+          >
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="confirmDeleteGoal(goal)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Target Male Percentage:
+            {{ goal.target_male_percentage | number : "1.2-2" }}%
+          </p>
+          <p>
+            Target Female Percentage:
+            {{ goal.target_female_percentage | number : "1.2-2" }}%
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>
+
+<div class="col-lg-12">
+  <h2 class="text-center">Governance Practices</h2>
+  <app-governance-metrics-goals></app-governance-metrics-goals>
+</div>

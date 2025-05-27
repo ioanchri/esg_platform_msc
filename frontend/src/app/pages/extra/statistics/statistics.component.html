@@ -1,0 +1,226 @@
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div
+  *ngIf="
+    !loading &&
+    areaChartOptions?.series?.length > 0 &&
+    co2EmissionsChartOptions?.series?.length > 0 &&
+    columnChartOptions?.series?.length > 0 &&
+    genderRatioChartOptions?.series.length > 0 &&
+    compensationRatioChartOptions?.series.length > 0
+  "
+>
+  <div class="row">
+    <div class="col-lg-6" *ngIf="areaChartOptions?.series">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0"
+            >Hazardous & Non Hazardous Waste</mat-card-title
+          >
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            id="wasteDataChart"
+            *ngIf="areaChartOptions?.series"
+            [series]="areaChartOptions?.series"
+            [chart]="areaChartOptions?.chart"
+            [xaxis]="areaChartOptions?.xaxis"
+            [yaxis]="areaChartOptions?.yaxis"
+            [grid]="areaChartOptions?.grid"
+            [stroke]="areaChartOptions?.stroke"
+            [tooltip]="areaChartOptions?.tooltip"
+            [dataLabels]="areaChartOptions?.dataLabels"
+            [legend]="areaChartOptions?.legend"
+            [colors]="areaChartOptions?.colors"
+            [markers]="areaChartOptions?.markers"
+          >
+          </apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0">Car Consumption by Year</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            id="carConsumptionChart"
+            *ngIf="columnChartOptions?.series"
+            [series]="columnChartOptions?.series"
+            [chart]="columnChartOptions?.chart"
+            [xaxis]="columnChartOptions?.xaxis"
+            [yaxis]="columnChartOptions?.yaxis"
+            [grid]="columnChartOptions?.grid"
+            [stroke]="columnChartOptions?.stroke"
+            [tooltip]="columnChartOptions?.tooltip"
+            [dataLabels]="columnChartOptions?.dataLabels"
+            [legend]="columnChartOptions?.legend"
+            [colors]="columnChartOptions?.colors"
+            [plotOptions]="columnChartOptions?.plotOptions"
+          >
+          </apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0"
+            >Total Co2 Emissions by Year in Metric Tones</mat-card-title
+          >
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            id="co2EmissionsChart"
+            *ngIf="co2EmissionsChartOptions?.series"
+            [series]="co2EmissionsChartOptions?.series"
+            [chart]="co2EmissionsChartOptions?.chart"
+            [xaxis]="co2EmissionsChartOptions?.xaxis"
+            [yaxis]="co2EmissionsChartOptions?.yaxis"
+            [grid]="co2EmissionsChartOptions?.grid"
+            [stroke]="co2EmissionsChartOptions?.stroke"
+            [tooltip]="co2EmissionsChartOptions?.tooltip"
+            [dataLabels]="co2EmissionsChartOptions?.dataLabels"
+            [legend]="co2EmissionsChartOptions?.legend"
+            [colors]="co2EmissionsChartOptions?.colors"
+            [plotOptions]="co2EmissionsChartOptions?.plotOptions"
+          >
+          </apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+      <div class="col-lg-6">
+        <mat-card class="cardWithShadow theme-card">
+          <mat-card-header>
+            <mat-card-title class="m-b-0"
+              >CO2 Consumption per Person by Year in kgs</mat-card-title
+            >
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <apx-chart
+              id="co2PerPersonChart"
+              *ngIf="co2PerPersonChartOptions?.series"
+              [series]="co2PerPersonChartOptions?.series"
+              [chart]="co2PerPersonChartOptions?.chart"
+              [xaxis]="co2PerPersonChartOptions?.xaxis"
+              [tooltip]="co2PerPersonChartOptions?.tooltip"
+            ></apx-chart>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0">
+            Gender Ratio
+            <ng-container *ngIf="genderRatioYear">for the year {{ genderRatioYear }}</ng-container>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            *ngIf="genderRatioChartOptions?.series"
+            [series]="genderRatioChartOptions.series"
+            [chart]="genderRatioChartOptions.chart"
+            [labels]="genderRatioChartOptions.labels"
+            [dataLabels]="genderRatioChartOptions.dataLabels"
+            [plotOptions]="genderRatioChartOptions.plotOptions"
+            [tooltip]="genderRatioChartOptions.tooltip"
+            [fill]="genderRatioChartOptions.fill"
+            [legend]="genderRatioChartOptions.legend"
+            [responsive]="genderRatioChartOptions.responsive"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0">
+            CEO vs Median Compensation
+            <ng-container *ngIf="compensationRatioYear">for the year {{ compensationRatioYear }}</ng-container>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            *ngIf="compensationRatioChartOptions?.series"
+            [series]="compensationRatioChartOptions.series"
+            [chart]="compensationRatioChartOptions.chart"
+            [labels]="compensationRatioChartOptions.labels"
+            [dataLabels]="compensationRatioChartOptions.dataLabels"
+            [plotOptions]="compensationRatioChartOptions.plotOptions"
+            [tooltip]="compensationRatioChartOptions.tooltip"
+            [fill]="compensationRatioChartOptions.fill"
+            [legend]="compensationRatioChartOptions.legend"
+            [colors]="compensationRatioChartOptions.colors"
+            [responsive]="compensationRatioChartOptions.responsive"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0"
+            >Total CO2 Consumption by Year</mat-card-title
+          >
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            *ngIf="totalCO2ChartOptions?.series"
+            [series]="totalCO2ChartOptions?.series"
+            [chart]="totalCO2ChartOptions?.chart"
+            [xaxis]="totalCO2ChartOptions?.xaxis"
+            [tooltip]="totalCO2ChartOptions?.tooltip"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title class="m-b-0">
+            Employee Turnover Rate
+            <ng-container *ngIf="turnoverRateYear">for the year {{ turnoverRateYear }}</ng-container>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <apx-chart
+            *ngIf="turnoverRateChartOptions?.series"
+            [series]="turnoverRateChartOptions.series"
+            [chart]="turnoverRateChartOptions.chart"
+            [labels]="turnoverRateChartOptions.labels"
+            [dataLabels]="turnoverRateChartOptions.dataLabels"
+            [tooltip]="turnoverRateChartOptions.tooltip"
+            [legend]="turnoverRateChartOptions.legend"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div
+  class="text-center"
+  *ngIf="
+    !areaChartOptions?.series?.length &&
+    !co2EmissionsChartOptions?.series?.length &&
+    !columnChartOptions?.series?.length
+  "
+>
+  <p>No graphs available.</p>
+  <button
+    mat-flat-button
+    color="primary"
+    routerLink="/extra/my-metrics"
+    class="m-r-8 text-center"
+  >
+    Add metrics
+  </button>
+</div>

@@ -1,0 +1,509 @@
+<div *ngIf="isUpdateMode" class="theme-card shadow-none">
+  <mat-card class="shadow-none bg-transparent">
+    <mat-card-content>
+      <div
+        class="d-flex flex-sm-row flex-column align-items-center justify-content-center gap-8"
+      >
+        <button mat-fab extended color="primary" disabled>
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="leaf"></i-tabler
+            ><span> Environmental</span>
+          </div>
+        </button>
+
+        <button mat-fab extended color="accent" (click)="onSocialMetrics()">
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="social"></i-tabler>
+            Social
+          </div>
+        </button>
+
+        <button mat-fab extended color="warn" (click)="onGovernanceMetrics()">
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="gavel"></i-tabler> Governance
+          </div>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="justify-content-center">
+    <h1>Environmental Metrics</h1>
+  </mat-card-header>
+
+  <mat-card-content class="b-t-1">
+    <form class="m-t-24" [formGroup]="envMetricsForm" (ngSubmit)="onSubmit()">
+      <h4 class="text-center mat-headline-6 m-y-24">Energy</h4>
+
+      <!-- Energy  -->
+      <form class="m-t-24" [formGroup]="energyFormGroup">
+        <ng-template>Energy</ng-template>
+        <div *ngIf="!isUpdateMode" class="col-lg-6">
+          <div class="row">
+          <p class="green-notification">
+            After creating the metrics, you will be able to add PDF
+            files for each category.
+          </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Electricity Consumption (kwh)</mat-label>
+              <input
+                matInput
+                formControlName="electricity_consumption"
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+          <div *ngIf="isUpdateMode" class="pdf-upload-container col-lg-6">
+            <!-- Electricity PDF Upload -->
+            <div class="pdf-section">
+              <div class="upload-area d-flex align-items-center">
+                <input
+                  #electricityFileInput
+                  type="file"
+                  (change)="onFileSelected($event, 'electricity')"
+                  accept=".pdf"
+                  hidden
+                />
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="electricityFileInput.click()"
+                  style="margin-bottom: 8px"
+                  *ngIf="!electricityPdfUrl"
+                >
+                  <mat-icon>upload</mat-icon> Select Electricity PDF File
+                </button>
+                <div class="selected-file" *ngIf="selectedElectricityFile">
+                  {{ selectedElectricityFile.name }}
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="onRemove('electricity')"
+                    style="margin-left: 8px"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+                <div class="button-group">
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    type="button"
+                    (click)="onUpload('electricity')"
+                    [disabled]="!selectedElectricityFile"
+                    style="margin-left: 8px"
+                    *ngIf="!electricityPdfUrl"
+                  >
+                    Upload
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    type="button"
+                    (click)="onViewPdf('electricity')"
+                    *ngIf="electricityPdfUrl"
+                    style="margin: 8px 8px 0 0"
+                  >
+                    View PDF
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    type="button"
+                    (click)="onDelete('electricity')"
+                    *ngIf="electricityPdfUrl"
+                    style="margin-top: 8px"
+                  >
+                    Delete PDF
+                  </button>
+                  <div *ngIf="uploadSuccess['electricity']" class="mat-success">
+                    File uploaded successfully!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Gas Consumption (liters)</mat-label>
+              <input matInput formControlName="gas_consumption" type="number" />
+            </mat-form-field>
+          </div>
+          <!-- Gas PDF Upload -->
+          <div *ngIf="isUpdateMode" class="col-lg-6">
+            <div class="upload-area d-flex align-items-center">
+              <input
+                #gasFileInput
+                type="file"
+                (change)="onFileSelected($event, 'gas')"
+                accept=".pdf"
+                hidden
+              />
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="gasFileInput.click()"
+                *ngIf="!gasPdfUrl"
+              >
+                <mat-icon>upload</mat-icon> Select Gas PDF File
+              </button>
+              <div class="selected-file" *ngIf="selectedGasFile">
+                {{ selectedGasFile.name }}
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onRemove('gas')"
+                  style="margin-left: 8px"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div class="button-group">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="onUpload('gas')"
+                  [disabled]="!selectedGasFile"
+                  style="margin-left: 8px"
+                  *ngIf="!gasPdfUrl"
+                >
+                  Upload
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="onViewPdf('gas')"
+                  *ngIf="gasPdfUrl"
+                  style="margin: 8px 8px 0 0"
+                >
+                  View PDF
+                </button>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  (click)="onDelete('gas')"
+                  *ngIf="gasPdfUrl"
+                  style="margin-top: 8px"
+                >
+                  Delete PDF
+                </button>
+                <div *ngIf="uploadSuccess['gas']" class="mat-success">
+                  File uploaded successfully!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <h4 class="text-center mat-headline-6 m-y-24">Transportation</h4>
+      <!-- Transportation Step -->
+      <form class="m-t-24" [formGroup]="transportationFormGroup">
+        <ng-template>Transportation</ng-template>
+        <div class="row">
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Car Diesel Consumption (liters)</mat-label>
+              <input
+                matInput
+                formControlName="car_diesel_consumption"
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Car diesel PDF Upload -->
+          <div *ngIf="isUpdateMode" class="col-lg-6">
+            <div class="upload-area d-flex align-items-center">
+              <input
+                #carDieselFileInput
+                type="file"
+                (change)="onFileSelected($event, 'carDiesel')"
+                accept=".pdf"
+                hidden
+              />
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="carDieselFileInput.click()"
+                *ngIf="!carDieselPdfUrl"
+              >
+                <mat-icon>upload</mat-icon> Select Diesel Car PDF File
+              </button>
+              <div class="selected-file" *ngIf="selectedCarDieselFile">
+                {{ selectedCarDieselFile.name }}
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onRemove('carDiesel')"
+                  style="margin-left: 8px"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div class="button-group">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="onUpload('carDiesel')"
+                  [disabled]="!selectedCarDieselFile"
+                  style="margin-left: 8px"
+                  *ngIf="!carDieselPdfUrl"
+                >
+                  Upload
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="onViewPdf('carDiesel')"
+                  *ngIf="carDieselPdfUrl"
+                  style="margin: 8px 8px 0 0"
+                >
+                  View PDF
+                </button>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  (click)="onDelete('carDiesel')"
+                  *ngIf="carDieselPdfUrl"
+                  style="margin-top: 8px"
+                >
+                  Delete PDF
+                </button>
+                <div *ngIf="uploadSuccess['carDiesel']" class="mat-success">
+                  File uploaded successfully!
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Car Fuel Consumption (liters)</mat-label>
+              <input
+                matInput
+                formControlName="car_fuel_consumption"
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Car fuel PDF Upload -->
+          <div *ngIf="isUpdateMode" class="col-lg-6">
+            <div class="upload-area d-flex align-items-center">
+              <input
+                #carFuelFileInput
+                type="file"
+                (change)="onFileSelected($event, 'carFuel')"
+                accept=".pdf"
+                hidden
+              />
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="carFuelFileInput.click()"
+                *ngIf="!carFuelPdfUrl"
+              >
+                <mat-icon>upload</mat-icon> Select Fuel Car PDF File
+              </button>
+              <div class="selected-file" *ngIf="selectedCarFuelFile">
+                {{ selectedCarFuelFile.name }}
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onRemove('carFuel')"
+                  style="margin-left: 8px"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div class="button-group">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="onUpload('carFuel')"
+                  [disabled]="!selectedCarFuelFile"
+                  style="margin-left: 8px"
+                  *ngIf="!carFuelPdfUrl"
+                >
+                  Upload
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="onViewPdf('carFuel')"
+                  *ngIf="carFuelPdfUrl"
+                  style="margin: 8px 8px 0 0"
+                >
+                  View PDF
+                </button>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  (click)="onDelete('carFuel')"
+                  *ngIf="carFuelPdfUrl"
+                  style="margin-top: 8px"
+                >
+                  Delete PDF
+                </button>
+                <div *ngIf="uploadSuccess['carFuel']" class="mat-success">
+                  File uploaded successfully!
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Car Electricity Consumption (kwh)</mat-label>
+              <input
+                matInput
+                formControlName="car_electricity_consumption"
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+          <!-- Car electricity PDF Upload -->
+          <div *ngIf="isUpdateMode" class="col-lg-6">
+            <div class="upload-area d-flex align-items-center">
+              <input
+                #carElectricityFileInput
+                type="file"
+                (change)="onFileSelected($event, 'carElectricity')"
+                accept=".pdf"
+                hidden
+              />
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="carElectricityFileInput.click()"
+                *ngIf="!carElectricityPdfUrl"
+              >
+                <mat-icon>upload</mat-icon> Select Electricity Car PDF File
+              </button>
+              <div class="selected-file" *ngIf="selectedCarElectricityFile">
+                {{ selectedCarElectricityFile.name }}
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onRemove('carElectricity')"
+                  style="margin-left: 8px"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div class="button-group">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="onUpload('carElectricity')"
+                  [disabled]="!selectedCarElectricityFile"
+                  style="margin-left: 8px"
+                  *ngIf="!carElectricityPdfUrl"
+                >
+                  Upload
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="onViewPdf('carElectricity')"
+                  *ngIf="carElectricityPdfUrl"
+                  style="margin: 8px 8px 0 0"
+                >
+                  View PDF
+                </button>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  (click)="onDelete('carElectricity')"
+                  *ngIf="carElectricityPdfUrl"
+                  style="margin-top: 8px"
+                >
+                  Delete PDF
+                </button>
+                <div *ngIf="uploadSuccess['carElectricity']" class="mat-success">
+                  File uploaded successfully!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Waste Consumption Step -->
+      <form class="m-t-24" [formGroup]="wasteFormGroup">
+        <ng-template>Waste Consumption</ng-template>
+        <h4 class="text-center mat-headline-6 m-y-24">
+          Hazardous & Non Hazardous waste
+        </h4>
+        <div class="row">
+          <p class="m-t-8 f-s-14 col-lg-6">
+            Hazardous waste refers to waste materials that are dangerous or
+            potentially harmful to human health or the environment.<br />
+            These can include
+            <b>chemicals, batteries, pesticides, and other toxic substances.</b>
+          </p>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Hazardous Waste (kgs)</mat-label>
+              <input matInput formControlName="hazardous_waste" type="number" />
+            </mat-form-field>
+          </div>
+          <p class="m-t-8 f-s-14 col-lg-6">
+            Non Hazardous waste refers to waste materials that are not toxic or
+            harmful to human health or the environment.<br />
+            These can include
+            <b>paper, plastic, glass, and other non-toxic substances.</b>
+          </p>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Non-Hazardous Waste (kgs)</mat-label>
+              <input
+                matInput
+                formControlName="non_hazardous_waste"
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="text-right m-t-16">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="onSubmit()"
+            class="m-r-8"
+          >
+            {{ isUpdateMode ? "Save" : "Add Environmental Metrics" }}
+          </button>
+          <button
+            [routerLink]="['/dashboard']"
+            mat-stroked-button
+            color="secondary"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </form>
+  </mat-card-content>
+</mat-card>

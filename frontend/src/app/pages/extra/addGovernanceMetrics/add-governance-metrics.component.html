@@ -1,0 +1,181 @@
+<div *ngIf="isUpdateMode" class="theme-card shadow-none">
+  <mat-card class="shadow-none bg-transparent">
+    <mat-card-content>
+      <div
+        class="d-flex flex-sm-row flex-column align-items-center justify-content-center gap-8"
+      >
+        <button
+          mat-fab
+          extended
+          color="primary"
+          (click)="onEnvironmentalMetrics()"
+        >
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="leaf"></i-tabler
+            ><span> Environmental</span>
+          </div>
+        </button>
+
+        <button
+          mat-fab
+          extended
+          color="accent"
+          class="b-2"
+          (click)="onSocialMetrics()"
+        >
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="social"></i-tabler>
+            Social
+          </div>
+        </button>
+
+        <button mat-fab extended color="warn" disabled>
+          <div class="d-flex align-items-center">
+            <i-tabler class="icon-20 m-r-4" name="gavel"></i-tabler> Governance
+          </div>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="justify-content-center">
+    <h1>Governance Metrics</h1>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form
+      class="m-t-24"
+      [formGroup]="governanceMetricsForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="row">
+        <!-- Anti-Corruption -->
+        <div class="col-lg-12 text-center">
+          <h2 class="text-center">Anti-Corruption</h2>
+          <mat-label class="f-w-600 d-block m-b-16"
+            >What training programs does your organization provide to prevent
+            and detect corruption or bribery?</mat-label
+          >
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"
+              formControlName="anti_corruption_text"
+            ></textarea>
+          </mat-form-field>
+          <h3>Progress in anti-corruption</h3>
+          <div formGroupName="anti_corruption">
+            <mat-checkbox formControlName="introduction"
+              >Introduction</mat-checkbox
+            >
+            <mat-checkbox formControlName="growth">Growth</mat-checkbox>
+            <mat-checkbox formControlName="maturity">Maturity</mat-checkbox>
+            <mat-checkbox formControlName="licensed">Licenced</mat-checkbox>
+          </div>
+        </div>
+
+        <!-- Whistleblowing -->
+        <div class="col-lg-12 text-center">
+          <h2>Whistleblowing</h2>
+          <mat-label class="f-w-600 d-block m-b-16"
+            >What safeguards are in place for reporting irregularities,
+            including whistleblowing protection?</mat-label
+          >
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea
+              matInput
+              formControlName="whistleblowing_text"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"
+            ></textarea>
+          </mat-form-field>
+          <h3>Progress in whistleblowing</h3>
+          <div class="m-y-16" formGroupName="whistleblowing">
+            <mat-checkbox formControlName="introduction"
+              >Introduction</mat-checkbox
+            >
+            <mat-checkbox formControlName="growth">Growth</mat-checkbox>
+            <mat-checkbox formControlName="maturity">Maturity</mat-checkbox>
+            <mat-checkbox formControlName="licensed">Licenced</mat-checkbox>
+          </div>
+        </div>
+        <!-- Corporate Culture -->
+        <div class="col-lg-12 text-center">
+          <h2>Corporate Culture</h2>
+          <mat-label class="f-w-600 d-block m-b-16"
+            >How does your organization establish, promote, and evaluate its
+            corporate culture?</mat-label
+          >
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"
+              formControlName="corporate_culture_text"
+            ></textarea>
+          </mat-form-field>
+          <mat-label>Progress in corporate culture</mat-label>
+          <div formGroupName="corporate_culture">
+            <mat-checkbox formControlName="introduction"
+              >Introduction</mat-checkbox
+            >
+            <mat-checkbox formControlName="growth">Growth</mat-checkbox>
+            <mat-checkbox formControlName="maturity">Maturity</mat-checkbox>
+            <mat-checkbox formControlName="licensed">Licenced</mat-checkbox>
+          </div>
+        </div>
+        <!-- Business Conduct -->
+        <div class="col-lg-12 text-center">
+          <h2>Business Conduct</h2>
+          <mat-label class="f-w-600 d-block m-b-16"
+            >What mechanisms are in place for identifying, reporting, and
+            investigating concerns about unlawful behavior or behavior that
+            contradicts the code of conduct?</mat-label
+          >
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"
+              formControlName="business_conduct_text"
+            ></textarea>
+          </mat-form-field>
+          <mat-label>Progress in business conduct</mat-label>
+          <div formGroupName="business_conduct">
+            <mat-checkbox formControlName="introduction"
+              >In Progress</mat-checkbox
+            >
+            <mat-checkbox formControlName="growth">Growth</mat-checkbox>
+            <mat-checkbox formControlName="maturity">Maturity</mat-checkbox>
+            <mat-checkbox formControlName="licensed">Licenced</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-t-12 text-right">
+        <button
+          mat-flat-button
+          color="primary"
+          class="m-r-8"
+          [disabled]="governanceMetricsForm.invalid"
+        >
+          {{ isUpdateMode ? "Save" : "Finish" }}
+        </button>
+        <button
+          [routerLink]="['/dashboard']"
+          mat-stroked-button
+          color="secondary"
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

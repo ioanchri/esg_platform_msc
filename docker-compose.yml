@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  db-container:
+    image: postgres:13
+    container_name: db-container-esg
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db-data:/var/lib/postgresql/data 
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+  backend-container:
+    container_name: backend-container-esg
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ioanchri/esg-report-tool-backend:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - my-network
+    depends_on:
+      - db-container
+    restart: on-failure
+    volumes:
+      - ./.env:/app/.env:ro    
+
+  frontend-container:
+    container_name: frontend-container-esg
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: ioanchri/esg-report-tool-frontend:latest  
+    ports:
+      - "4300:80"
+    networks:
+      - my-network
+    depends_on:
+      - backend-container
+
+networks:
+  my-network:
+
+volumes:
+  db-data:

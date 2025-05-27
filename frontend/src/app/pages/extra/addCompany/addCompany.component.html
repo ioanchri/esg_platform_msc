@@ -1,0 +1,171 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="justify-content-center">
+    <mat-card-title class="d-block f-s-20 m-b-12">{{
+      companyId
+        ? "Update Company General Information"
+        : "Company General Information"
+    }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Name -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Company Name *</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              placeholder="Company Name"
+              formControlName="name"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Industry -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Industry</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="industry">
+              <mat-option
+                *ngFor="let option of industries"
+                [value]="option.value"
+              >
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Contact Email -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Contact Email *</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              type="email"
+              placeholder="Contact Email"
+              formControlName="contact_email"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Website -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Website</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Website" formControlName="website" />
+          </mat-form-field>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Phone Number</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Phone Number"
+              formControlName="phone_number"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Year Founded -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Year Founded *</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              type="number"
+              matInput
+              placeholder="Year Founded"
+              formControlName="year_founded"
+              [matAutocomplete]="autoYear"
+            />
+            <mat-autocomplete #autoYear="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredYear | async"
+                [value]="option.value"
+              >
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-12 col-sm-6 text-center">
+          <mat-card-header class="justify-content-center">
+            <mat-card-title class="d-block f-s-20 m-b-12">
+              Demographic Information
+            </mat-card-title>
+          </mat-card-header>
+          <br />
+        </div>
+
+        <!-- Country -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Country</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              type="text"
+              matInput
+              placeholder="Country"
+              formControlName="country"
+              [matAutocomplete]="autoCountry"
+            />
+            <mat-autocomplete #autoCountry="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredCountries | async"
+                [value]="option.value"
+              >
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <!-- City -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">City</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="city">
+              <mat-option *ngFor="let option of cities" [value]="option.value">
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Address -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Address</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Address" formControlName="address" />
+          </mat-form-field>
+        </div>
+
+        <!-- Postal Code -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Postal Code</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Postal Code"
+              formControlName="postal_code"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="m-t-12">
+        <button mat-flat-button color="primary" type="submit" class="m-r-6">
+          {{ companyId ? "Save Changes" : "Create Company" }}
+        </button>
+      </div>
+      <mat-hint *ngIf="errorMessage" class="text-error">{{
+        errorMessage
+      }}</mat-hint>
+    </form>
+  </mat-card-content>
+</mat-card>
